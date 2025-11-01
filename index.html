@@ -1,356 +1,535 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>أفضل عروض شحن</title>
-  <style>
-    :root{ --bg:#0b0b0b; --card:#0f1720; --muted:#94a3b8; --accent:#06b6d4; --success:#16a34a; --danger:#ef4444; --glass:rgba(255,255,255,0.03); }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Arial; background:var(--bg); color:#e6eef8; -webkit-font-smoothing:antialiased;}
-    header{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04)}
-    .logo{display:flex;gap:12px;align-items:center}
-    .logo .mark{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:20px}
-    h1{margin:0;font-size:20px}
-    nav{display:flex;gap:12px;align-items:center}
-    nav button{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;border-radius:8px;cursor:pointer}
-    main{max-width:1100px;margin:28px auto;padding:0 18px}
-    .sections{display:grid;grid-template-columns:1fr;gap:18px}
-    .section{background:var(--card);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
-    .section h2{margin:0 0 8px 0;color:#fff}
-    .products{display:flex;flex-wrap:wrap;gap:12px}
-    .prod{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;width:260px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
-    .prod img{width:100%;height:140px;object-fit:cover;border-radius:8px}
-    .prod .title{font-weight:700}
-    .prod .price{font-weight:800;color:var(--accent);}
-    .actions{display:flex;gap:8px;margin-top:auto}
-    .btn{padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:var(--accent);color:#051024}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-    /* cart */
-    .cart-btn{position:fixed;left:18px;bottom:18px;background:var(--accent);color:#051024;padding:12px;border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,0.6);cursor:pointer;z-index:9999}
-    .cart-side{position:fixed;left:0;top:0;bottom:0;width:380px;background:#071023;transform:translateX(-105%);transition:transform .28s;box-shadow:8px 0 30px rgba(2,6,23,0.6);padding:14px;z-index:9998}
-    .cart-side.open{transform:translateX(0)}
-    .cart-item{display:flex;gap:10px;align-items:center;border-bottom:1px solid rgba(255,255,255,0.03);padding:10px 0}
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:10000}
-    .modal.open{display:flex}
-    .modal .dialog{background:#071023;padding:18px;border-radius:12px;width:420px;max-width:94%;border:1px solid rgba(255,255,255,0.04);color:#e6eef8}
-    .modal .dialog h3{margin:0 0 8px 0}
-    .input,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
-    .center{display:flex;gap:8px;align-items:center}
-    .note{font-size:13px;color:var(--muted)}
-    footer{padding:18px;text-align:center;color:var(--muted);margin-top:20px}
-    @media(max-width:740px){ .products{justify-content:center} .prod{width:100%} .cart-side{width:100%} }
-  </style>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js">
-document.getElementById('clearCart').addEventListener('click', ()=>{
-  cart = {};
-  localStorage.removeItem('best_offers_cart');
-  renderCart();
-  alert("تم تفريغ السلة ✅");
-});
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.GAME — متجر حسابات وشحن ألعاب</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#ff6b6b;--dark:#0f1724;--muted:#9aa4b2;--success:#28a745;--orange:#ff8a00}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Tajawal',sans-serif;background:#07101a;color:#fff;line-height:1.5}
+header{background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);padding:12px 18px;position:sticky;top:0;z-index:60}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;position:relative}
+.nav{display:flex;gap:12px;align-items:center;position:relative}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.brand{font-weight:900}
+.search{flex:1}
+.search input{width:100%;padding:10px 12px;border-radius:10px;border:0;background:#0b1116;color:#fff}
+.btn{background:var(--accent);padding:10px 14px;border-radius:10px;color:#111;font-weight:800;border:0;cursor:pointer}
+.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;color:#fff;cursor:pointer}
 
-</script>
-<script>emailjs.init('H1UCQ3TNmVxTTUxaJ');
-document.getElementById('clearCart').addEventListener('click', ()=>{
-  cart = {};
-  localStorage.removeItem('best_offers_cart');
-  renderCart();
-  alert("تم تفريغ السلة ✅");
-});
+/* زر عروض الشحن في أقصى اليسار */
+.offers-btn {
+  margin-right: auto; /* يدفع الزر نحو اليسار */
+  background: #0b1220;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+  transition: background 0.2s;
+}
+.offers-btn:hover {
+  background: rgba(255,107,107,0.15);
+}
 
-</script>
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:20px}
+.card{background:linear-gradient(180deg,#0b1116,#07101a);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+.card h3{font-size:16px;margin:8px 0 4px}
+.price{font-weight:800;color:var(--accent)}
+.meta{color:var(--muted);font-size:13px}
+
+/* Cart drawer */
+.cart-drawer{position:fixed;right:0;top:0;height:100%;width:360px;background:#07101a;box-shadow:-20px 0 50px rgba(0,0,0,0.6);transform:translateX(110%);transition:transform .28s;z-index:80;padding:16px}
+.cart-drawer.open{transform:translateX(0)}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+.cart-item img{width:56px;height:46px;object-fit:cover;border-radius:6px}
+
+/* Checkout modal */
+#checkoutModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:90}
+#checkoutModal .modal-content{background:#111;padding:24px;border-radius:12px;width:90%;max-width:720px}
+#checkoutModal h3{margin-top:0}
+#checkoutModal label{display:block;margin-top:12px;margin-bottom:6px}
+#checkoutModal input, #checkoutModal select{width:100%;padding:10px;border-radius:8px;border:0;background:#0b1116;color:#fff;margin-bottom:12px}
+#checkoutModal .order-btn{background:var(--success);color:#fff;padding:12px 16px;font-weight:700;border:0;border-radius:10px;cursor:pointer;width:100%;margin-top:10px}
+
+/* Full screen shipping overlay */
+#shippingOffersOverlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.85));
+  backdrop-filter:blur(6px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+#shippingOffersOverlay.open{display:flex}
+.offers-card{
+  width:100%;
+  max-width:1100px;
+  background:linear-gradient(180deg,#07101a,#05070a);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.03);
+  padding:22px;
+  position:relative;
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  animation:popIn .28s ease;
+  direction:rtl;
+}
+@keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Close X red top-left */
+.offers-close{
+  position:absolute;
+  left:12px;
+  top:12px;
+  background:#ff3b3b;
+  color:#fff;
+  width:40px;height:40px;border-radius:8px;border:0;font-weight:900;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:0 6px 18px rgba(255,59,59,0.12);
+  z-index:105;
+}
+
+/* offers list */
+.offers-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.offer{background:linear-gradient(180deg,#061018,#07101a);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.offer h4{margin-bottom:6px}
+.offer .offer-price{font-weight:900;color:var(--accent);margin-bottom:8px}
+.offer .offer-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;color:#fff;cursor:pointer}
+
+/* Small choice modal (داخل overlay) */
+#offerChoiceModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:110;
+  align-items:center;
+  justify-content:center;
+}
+.choice-box{
+  background:#0b1116;padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);width:320px;max-width:90%;
+  text-align:center;animation:scaleIn .18s ease;
+}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.choice-box button{width:100%;padding:10px;border-radius:8px;border:0;margin-top:8px;font-weight:800;cursor:pointer}
+
+/* Toast message on far right */
+#rightToast{
+  position:fixed;
+  right:16px;
+  top:20px;
+  z-index:120;
+  background:linear-gradient(90deg,var(--orange),#ffb46b);
+  color:#111;
+  padding:12px 16px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.45);
+  display:none;
+  transform:translateX(20px);
+  opacity:0;
+}
+#rightToast.show{
+  display:block;
+  animation:toastIn .4s ease forwards;
+}
+@keyframes toastIn{to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{to{transform:translateX(20px);opacity:0}}
+
+/* responsive tweaks */
+@media (max-width:720px){
+  .offers-card{padding:16px}
+  .offers-close{left:8px;top:8px;width:36px;height:36px}
+  .choice-box{width:90%}
+}
+</style>
 </head>
 <body>
 <header>
-  <div class="logo"><div class="mark">S</div><div><h1>أفضل عروض شحن</h1><div class="note">عروض آمنة وسريعة</div></div></div>
-  <nav><button id="openAccounts">حسابات</button><button id="openDiscord">ديسكورد</button></nav>
+  <div class="container nav">
+    <div class="logo">
+      <img src="https://images.unsplash.com/photo-1605902711622-cfb43c44367e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="logo">
+      <div class="brand">R.GAME</div>
+    </div>
+
+    <div class="search">
+      <input id="searchInput" placeholder="ابحث عن اللعبة أو الحساب أو طريقة الشحن...">
+    </div>
+
+    <button class="btn" id="cartBtn">عربة (0)</button>
+
+    <!-- زر عروض الشحن على أقصى اليسار -->
+    <button class="offers-btn" id="offersBtn">عروض الشحن</button>
+<a href="https://salah-site.github.io/S__Store/" target="_blank" 
+   style="margin-right:8px;background:#0a0;border:1px solid #0f0;padding:8px 14px;border-radius:10px;color:#fff;font-weight:700;text-decoration:none;">
+   المتجر الجديد
+</a>
+  </div>
 </header>
 
-<main>
-  <div class="sections">
-    <section class="section" id="tiktokSection">
-      <h2>قسم شحن تيك توك</h2>
-      <div class="products">
-        <!-- عملات تيك توك -->
-        <div class="prod" data-id="tt-coins">
-          <img src="https://i.pinimg.com/1200x/24/ee/ed/24eeedde0b8d46721790c6da4a50b1a3.jpg" alt="عملات تيك توك">
-          <div class="title">عملات تيك توك</div>
-          <div class="note">اختر الكمية المناسبة</div>
-          <div class="price">20 عملة — 150 د.ج</div>
-          <div class="actions"><button class="btn btn-primary order-btn" data-product="coins">طلب المنتج</button></div>
-        </div>
-        <!-- متابعين تيك توك -->
-        <div class="prod" data-id="tt-followers">
-          <img src="https://i.pinimg.com/736x/a8/87/0c/a8870c90c6302822beefe6795de9ca93.jpg" alt="متابعين تيك توك">
-          <div class="title">متابعين تيك توك</div>
-          <div class="note">100 متابع — 300 د.ج (خصم: 1000 متابع = 2500 د.ج)</div>
-          <div class="price">ابدأ من 100 متابع</div>
-          <div class="actions"><button class="btn btn-primary order-btn" data-product="followers">طلب المنتج</button></div>
-        </div>
-        <!-- مشاهدين تيك توك -->
-        <div class="prod" data-id="tt-views">
-          <img src="https://i.pinimg.com/736x/54/47/b1/5447b18f3ff226459b66481a3a684808.jpg" alt="مشاهدين تيك توك">
-          <div class="title">مشاهدين تيك توك</div>
-          <div class="note">1000 مشاهدة — 100 د.ج (خصم: 5000 مشاهدة = 500 د.ج)</div>
-          <div class="price">اختر عدد المشاهدات</div>
-          <div class="actions"><button class="btn btn-primary order-btn" data-product="views">طلب المنتج</button></div>
-        </div>
-      </div>
-    </section>
+<main class="container">
+  <section>
+    <h2 style="margin-top:24px;color:var(--accent)">منتجات مميزة</h2>
+    <div class="grid" id="productsGrid"></div>
+  </section>
 
-    <section class="section" id="discordSection">
-      <h2>قسم الديسكورد</h2>
-      <div class="products">
-        <!-- Nitro شهر + ضمان -->
-        <div class="prod" data-id="dc-nitro-plus">
-          <img src="https://i.pinimg.com/1200x/cb/78/c0/cb78c09f3e7c9a41fe174ca2b5251b8a.jpg" alt="Nitro Plus">
-          <div class="title">نيترو ديسكورد (شهر + ضمان)</div>
-          <div class="price">السعر: 2500 د.ج</div>
-          <div class="actions"><button class="btn btn-primary add-cart" data-id="nitro-plus" data-price="2500">طلب المنتج</button></div>
-        </div>
-        <!-- Nitro Basic -->
-        <div class="prod" data-id="dc-nitro-basic">
-          <img src="https://i.pinimg.com/1200x/35/33/87/353387addd7df0773560eba61a765820.jpg" alt="Nitro Basic">
-          <div class="title">نيترو بيسك</div>
-          <div class="price">السعر: 1200 د.ج</div>
-          <div class="actions"><button class="btn btn-primary add-cart" data-id="nitro-basic" data-price="1200">طلب المنتج</button></div>
-        </div>
-        <!-- حسابات ديسكورد -->
-        <div class="prod" data-id="dc-accounts">
-          <img src="https://i.pinimg.com/736x/ed/cb/56/edcb56a35853c07a7ba6348343470526.jpg" alt="حسابات ديسكورد">
-          <div class="title">حسابات ديسكورد</div>
-          <div class="note">اختر عمر الحساب</div>
-          <div class="price">ابتداءً من 1000 د.ج للسنة</div>
-          <div class="actions"><button class="btn btn-primary order-btn" data-product="discord-account">طلب المنتج</button></div>
-        </div>
-      </div>
-    </section>
-
+  <div id="checkoutModal">
+    <div class="modal-content">
+      <h3>إتمام الطلب</h3>
+      <div id="checkoutDetails" style="color:var(--muted)"></div>
+      <label>الاسم الكامل</label>
+      <input type="text" id="fullName" required>
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="email" required>
+      <label>طريقة الدفع</label>
+      <select id="paymentMethod">
+        <option value="online">دفع الكتروني</option>
+        <option value="cod">دفع عند الاستلام</option>
+      </select>
+      <button class="order-btn" onclick="submitOrder()">طلب المنتج</button>
+      <button class="secondary" style="margin-top:8px;" onclick="closeCheckout()">إلغاء</button>
+    </div>
   </div>
 </main>
 
-<!-- Cart Button & Side -->
-<button id="cartBtn" class="cart-btn" title="السلة">🛒</button>
-<aside id="cartSide" class="cart-side" aria-hidden="true">
-  <header style="display:flex;justify-content:space-between;align-items:center"><strong>سلة المشتريات</strong><button id="closeCart" style="background:none;border:none;color:var(--danger);font-size:20px;cursor:pointer">✕</button></header>
-  <div id="cartBody" style="margin-top:12px"></div>
-  <div style="margin-top:12px;border-top:1px dashed rgba(255,255,255,0.04);padding-top:12px">
-    <div style="display:flex;justify-content:space-between"><div>المجموع:</div><div id="cartTotal">0 د.ج</div></div>
-    <button id="checkout" style="margin-top:10px;width:100%;padding:12px;border-radius:10px;border:none;background:var(--success);color:#02120a;font-weight:800">اكمال الدفع</button>
-<button id="clearCart" style="margin-top:8px;width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#ef4444;font-weight:800">تفريغ السلة</button>
-  </div>
-</aside>
-
-<!-- Generic modal for TikTok and Discord-account -->
-<div id="productModal" class="modal" aria-hidden="true">
-  <div class="dialog" role="dialog" aria-modal="true">
-    <button id="closeModal" style="float:left;background:none;border:none;color:var(--danger);font-size:22px;cursor:pointer">✕</button>
-    <h3 id="modalTitle">طلب المنتج</h3>
-    <img id="modalImg" src="" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin:8px 0">
-    <div id="modalBody"></div>
+<!-- Cart drawer -->
+<div class="cart-drawer" id="cartDrawer">
+  <h3>عربتك</h3>
+  <div id="cartItems"></div>
+  <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.03);padding-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>الإجمالي</div>
+      <div id="cartTotal" style="font-weight:800;color:var(--accent)">0 د.ج</div>
+    </div>
     <div style="margin-top:12px;display:flex;gap:8px">
-      <button id="confirmAdd" class="btn btn-primary">أضف إلى السلة</button>
-      <button id="cancel" class="btn btn-ghost">إلغاء</button>
+      <button class="btn" onclick="openCheckout()">تابع للدفع</button>
+      <button class="secondary" onclick="clearCart()">تفريغ</button>
     </div>
   </div>
 </div>
 
-<script>
-// Simple cart implementation
-let cart = JSON.parse(localStorage.getItem('best_offers_cart')||'{}');
-const q = s => document.querySelector(s);
+<!-- Shipping Offers Fullscreen Overlay -->
+<div id="shippingOffersOverlay" aria-hidden="true">
+  <div class="offers-card" role="dialog" aria-modal="true">
+    <button class="offers-close" id="closeOffersBtn" title="إغلاق">✕</button>
+    <h2 style="color:var(--accent);margin-bottom:6px">شحن فري فاير — عروض الشحن</h2>
+    <p style="color:var(--muted);margin-bottom:14px">اختار العرض لي تحب، وبعدين اضغط "أضف للعربة". بعد الإضافة ستظهر نافذة اختيار الشحن.</p>
 
-function formatPrice(v){ return v.toLocaleString('ar-EG') + ' د.ج'; }
+    <div class="offers-list" id="offersList">
+      <!-- عروض جاهزة يتم توليدها بالـJS -->
+    </div>
 
-function renderCart(){
-  const body = q('#cartBody'); body.innerHTML='';
-  const items = Object.values(cart);
-  if(items.length===0){ body.innerHTML = '<div style="color:var(--muted)">السلة فارغة</div>'; q('#cartTotal').textContent='0 د.ج'; return; }
-  let total = 0;
-  items.forEach(it=>{
-    total += it.price * it.qty;
-    const el = document.createElement('div'); el.className='cart-item';
-    el.innerHTML = `<img src="${it.img}" style="width:64px;height:64px;border-radius:8px;object-fit:cover"><div style="flex:1;text-align:left"><div style="font-weight:700">${it.title}</div><div class="note">${formatPrice(it.price)} × ${it.qty}</div></div>`;
-    body.appendChild(el);
-  });
-  q('#cartTotal').textContent = formatPrice(total);
-  localStorage.setItem('best_offers_cart', JSON.stringify(cart));
-}
-
-function addToCartItem(id, title, price, img, qty=1){
-  if(cart[id]) cart[id].qty += qty; else cart[id] = {id, title, price, img, qty};
-  renderCart();
-  q('#cartBtn').textContent = '🛒 ' + Object.values(cart).reduce((s,i)=>s+i.qty,0);
-}
-
-// open cart
-q('#cartBtn').addEventListener('click', ()=>{ q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false'); });
-q('#closeCart').addEventListener('click', ()=>{ q('#cartSide').classList.remove('open'); q('#cartSide').setAttribute('aria-hidden','true'); });
-
-// handle Add-to-cart direct (Discord Nitro items)
-document.querySelectorAll('.add-cart').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const id = btn.dataset.id;
-    const price = Number(btn.dataset.price);
-    const prod = btn.closest('.prod');
-    const title = prod.querySelector('.title').textContent;
-    const img = prod.querySelector('img').src;
-    addToCartItem(id, title, price, img, 1);
-    // open cart
-    q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false');
-  });
-});
-
-// product modal logic (for TikTok items and discord account)
-const productModal = q('#productModal');
-const modalTitle = q('#modalTitle');
-const modalImg = q('#modalImg');
-const modalBody = q('#modalBody');
-let currentProduct = null;
-
-function openProductModal(productKey){
-  currentProduct = productKey;
-  modalBody.innerHTML = '';
-  if(productKey === 'coins'){
-    modalTitle.textContent = 'عملات تيك توك';
-    modalImg.src = 'https://i.pinimg.com/1200x/24/ee/ed/24eeedde0b8d46721790c6da4a50b1a3.jpg';
-    modalBody.innerHTML = `
-      <div class="note">اختر الكمية:</div>
-      <select id="qtySelect" class="input">
-        <option value="20" data-price="150">20 عملة — 150 د.ج</option>
-        <option value="50" data-price="320">50 عملة — 320 د.ج</option>
-        <option value="100" data-price="600">100 عملة — 600 د.ج</option>
-      </select>`;
-  } else if(productKey === 'followers'){
-    modalTitle.textContent = 'متابعين تيك توك';
-    modalImg.src = 'https://i.pinimg.com/736x/a8/87/0c/a8870c90c6302822beefe6795de9ca93.jpg';
-    modalBody.innerHTML = `
-      <div class="note">اختر الكمية:</div>
-      <select id="qtySelect" class="input">
-        <option value="100" data-price="300">100 متابع — 300 د.ج</option>
-        <option value="500" data-price="1400">500 متابع — 1400 د.ج</option>
-        <option value="1000" data-price="2500">1000 متابع — 2500 د.ج (خصم)</option>
-      </select>`;
-  } else if(productKey === 'views'){
-    modalTitle.textContent = 'مشاهدين تيك توك';
-    modalImg.src = 'https://i.pinimg.com/736x/54/47/b1/5447b18f3ff226459b66481a3a684808.jpg';
-    modalBody.innerHTML = `
-      <div class="note">اختر عدد المشاهدات:</div>
-      <select id="qtySelect" class="input">
-        <option value="1000" data-price="100">1000 مشاهدة — 100 د.ج</option>
-        <option value="3000" data-price="280">3000 مشاهدة — 280 د.ج</option>
-        <option value="5000" data-price="500">5000 مشاهدة — 500 د.ج (خصم)</option>
-      </select>`;
-  } else if(productKey === 'discord-account'){
-    modalTitle.textContent = 'طلب حساب ديسكورد';
-    modalImg.src = 'https://i.pinimg.com/736x/ed/cb/56/edcb56a35853c07a7ba6348343470526.jpg';
-    modalBody.innerHTML = `
-      <div class="note">اختر عمر الحساب (سنة)</div>
-      <select id="yearsSelect" class="input">
-        <option value="1" data-price="1000">1 سنة — 1000 د.ج</option>
-        <option value="2" data-price="2000">2 سنوات — 2000 د.ج</option>
-        <option value="3" data-price="3000">3 سنوات — 3000 د.ج</option>
-        <option value="4" data-price="4000">4 سنوات — 4000 د.ج</option>
-        <option value="5" data-price="5000">5 سنوات — 5000 د.ج</option>
-        <option value="6" data-price="6000">6 سنوات — 6000 د.ج</option>
-      </select>`;
-  }
-  productModal.classList.add('open');
-  productModal.setAttribute('aria-hidden','false');
-}
-
-// open modal on order-btn click
-document.querySelectorAll('.order-btn').forEach(b=>{
-  b.addEventListener('click', ()=> openProductModal(b.dataset.product));
-});
-
-// close modal
-q('#closeModal').addEventListener('click', ()=>{ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); });
-q('#cancel').addEventListener('click', ()=>{ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); });
-
-// confirm add from modal
-q('#confirmAdd').addEventListener('click', ()=>{
-  if(!currentProduct) return;
-  if(currentProduct === 'discord-account'){
-    const sel = q('#yearsSelect');
-    const years = Number(sel.value);
-    const price = Number(sel.selectedOptions[0].dataset.price);
-    addToCartItem('discord-acc-'+years, 'حساب ديسكورد — ' + years + ' سنة', price, q('#modalImg').src, 1);
-  } else {
-    const sel = q('#qtySelect');
-    const qty = Number(sel.value);
-    const price = Number(sel.selectedOptions[0].dataset.price);
-    addToCartItem(currentProduct + '-' + qty, modalTitle.textContent + ' × ' + qty, price, q('#modalImg').src, 1);
-  }
-  productModal.classList.remove('open');
-  productModal.setAttribute('aria-hidden','true');
-  // open cart to show item
-  q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false');
-});
-
-// keyboard escape to close modal
-window.addEventListener('keydown', e=>{ if(e.key === 'Escape'){ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); q('#cartSide').classList.remove('open'); } });
-
-// init
-renderCart();
-
-document.getElementById('clearCart').addEventListener('click', ()=>{
-  cart = {};
-  localStorage.removeItem('best_offers_cart');
-  renderCart();
-  alert("تم تفريغ السلة ✅");
-});
-
-</script>
-
-<footer>© جميع الحقوق محفوظة — أفضل عروض شحن</footer>
-
-<div id="payModal" class="modal">
-  <div class="dialog" style="background:#000;border:1px solid #222;">
-    <button onclick="closePayModal()" style="float:left;background:none;border:none;color:red;font-size:22px;cursor:pointer">✕</button>
-    <h3 style="margin-bottom:10px;text-align:center">أكمل الاستمارة لمتابعة الدفع</h3>
-    <form id="payForm" style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
-      <input class="input" name="name" placeholder="الاسم" required>
-      <input class="input" name="email" type="email" placeholder="البريد الإلكتروني" required>
-      <select class="input" name="method" required>
-        <option value="">طريقة الدفع</option>
-        <option value="Flexy">فليكسي</option>
-        <option value="CCP">CCP</option>
-      </select>
-      <button type="submit" style="padding:12px;border:none;border-radius:8px;background:#16a34a;color:#fff;font-weight:800;cursor:pointer">
-        إرسال الطلب
-      </button>
-    </form>
   </div>
 </div>
 
 <script>
-function closePayModal(){ document.getElementById('payModal').classList.remove('open'); }
+function showDiscordOffers(){
+  document.getElementById('shippingOffersOverlay').style.display='none';
+  document.getElementById('discordOffers').style.display='flex';
+}
 
-document.getElementById('checkout').onclick = function(){
-  document.getElementById('payModal').classList.add('open');
-};
+function closeDiscordOffers(){
+  document.getElementById('discordOffers').style.display='none';
+}
 
-document.getElementById('payForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  emailjs.send("service_jae833s","template_ja011yl",{
-    name: this.name.value,
-    email: this.email.value,
-    method: this.method.value
-  }).then(()=>{
-      alert("✅ تم إرسال طلبك بنجاح! سيتم التواصل معك.");
-      closePayModal();
-  }, ()=> alert("❌ فشل الإرسال"));
+let lastDiscordOffer = null;
+
+function onDiscordOfferAdd(id){
+  lastDiscordOffer = id; // تخزين آخر عرض
+  document.getElementById('discordOfferChoiceModal').style.display='flex';
+}
+
+function closeDiscordOfferChoice(){
+  document.getElementById('discordOfferChoiceModal').style.display='none';
+}
+
+document.getElementById('discordChargeOfferBtn').addEventListener('click',()=>finalizeDiscordOffer('شحن العروض'));
+document.getElementById('discordChargeGemsBtn').addEventListener('click',()=>finalizeDiscordOffer('شحن الجواهر'));
+
+function finalizeDiscordOffer(type){
+  if(!lastDiscordOffer) return;
+  let title='', price=0;
+  if(lastDiscordOffer==='discord1'){ title='نيترو Gming + ضمان المدة'; price=2500;}
+  else if(lastDiscordOffer==='discord2'){ title='نيترو باسيك'; price=1500;}
+  else if(lastDiscordOffer==='discord3'){ title='عروض أخرى'; price=0;}
+
+  cart.push({id:lastDiscordOffer,title:title+' — '+type,price:price,qty:1,img:'https://i.imgur.com/placeholder.png',isOffer:true});
+  updateCartUI();
+  closeDiscordOfferChoice();
+  alert('تمت إضافة العرض للعربة');
+}
+</script>
+  </div>
+</div>
+
+<!-- Small choice modal -->
+<div id="offerChoiceModal" aria-hidden="true">
+  <div class="choice-box" id="choiceBox">
+    <h3 style="margin-bottom:8px">اختر نوع الشحن</h3>
+    <div style="color:var(--muted);font-size:14px;margin-bottom:8px">شحن العروض أو شحن الجواهر</div>
+    <button id="chargeOfferBtn" style="background:var(--accent);color:#111">شحن العروض</button>
+    <button id="chargeGemsBtn" style="background:var(--orange);color:#111">شحن الجواهر</button>
+    <button class="secondary" onclick="closeOfferChoice()" style="margin-top:8px">إلغاء</button>
+  </div>
+</div>
+
+<!-- Toast message on far right -->
+<div id="rightToast">يرجى إكمال طلبك من خلال الضغط على العربة وتأكيد الدفع لإكمال العملية</div>
+
+<!-- SDK EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+emailjs.init("H1UCQ3TNmVxTTUxaJ"); // ضع Public Key الخاص بك
+</script>
+
+<script>
+/* === بيانات المنتجات الأساسية === */
+const products=[
+  {id:1,title:'حساب فري فاير - مستوى 59 + سكنات',price:4500,meta:'تسليم فوري',img:'https://i.pinimg.com/736x/e6/40/55/e6405574938e46795f8a2d86f95fe416.jpg'},
+  {id:2,title:'حساب Steam - ألعاب متعددة',price:7200,meta:'2FA مفعل',img:'https://i.pinimg.com/736x/12/c0/c9/12c0c9229040937d043d01f74b1d3f4b.jpg'},
+  {id:3,title:'حساب GTA V RP مع كل الحقوق',price:1000,meta:'تسليم فوري',img:'https://i.imgur.com/g5tXGRL.jpeg'},
+  {id:4, title:'حسابات تيك توك', price:0, meta:'تسليم فوري', img:'https://i.pinimg.com/736x/d8/a2/1e/d8a21e756173befdf886a0d15f6afac6.jpg', isTikTok:true}
+];
+
+/* === عروض الشحن (تقدر تعدل القيم) === */
+const shippingOffers = [
+  {id:'s1', title:'100 جوهرة', price:250, meta:'سريع', img:'https://i.pinimg.com/1200x/49/e4/3d/49e43dc233313089659d5a7084e3f660.jpg'},
+  {id:'s2', title:'500 جوهرة', price:1000, meta:'الأكثر مبيعاً', img:'https://i.pinimg.com/1200x/49/e4/3d/49e43dc233313089659d5a7084e3f660.jpg'},
+  {id:'s3', title:'1000 جوهرة', price:1800, meta:'عرض خاص', img:'https://i.pinimg.com/1200x/49/e4/3d/49e43dc233313089659d5a7084e3f660.jpg'},
+  {id:'s4', title:'عرض VIP (2000 جوهرة)', price:3000, meta:'أوفر', img:'https://i.pinimg.com/1200x/49/e4/3d/49e43dc233313089659d5a7084e3f660.jpg'}
+];
+
+const cart=[];
+let lastAddedOffer = null;
+
+/* === رندر المنتجات الرئيسية === */
+function renderProducts(list){
+  const grid=document.getElementById('productsGrid'); grid.innerHTML='';
+  list.forEach(p=>{
+    let priceDisplay = p.isTikTok ? 'حدد المتابعين' : p.price+' د.ج';
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`<img src="${p.img}" alt="${p.title}"><h3>${p.title}</h3><div class='meta'>${p.meta}</div>
+      <div style='display:flex;justify-content:space-between;align-items:center;margin-top:8px'>
+        <div class='price'>${priceDisplay}</div>
+        <div><button class='btn' onclick='addToCart(${p.id})'>أضف للعربة</button></div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* === منطق العربة === */
+function addToCart(id){
+  const p = products.find(x => x.id === id);
+
+  if(p.isTikTok){
+    const qty = prompt("اختر عدد المتابعين:\n100\n500\n1000\n5000\n10000\n50000");
+    if(!qty || isNaN(qty)) return;
+    const price = parseInt(qty) * 1; // السعر لكل متابع 1 د.ج
+    cart.push({id:p.id,title:p.title + " - " + qty + " متابع",price:price,qty:1,img:p.img});
+  } else {
+    const exists = cart.find(i => i.id === id && !i.isOffer);
+    if(exists) exists.qty++;
+    else cart.push({id:p.id,title:p.title,price:p.price,qty:1,img:p.img});
+  }
+
+  localStorage.setItem('lastProduct', JSON.stringify(p));
+  updateCartUI();
+  openCart();
+}
+
+function updateCartUI(){
+  document.getElementById('cartBtn').innerText=`عربة (${cart.reduce((s,i)=>s+i.qty,0)})`;
+  const container=document.getElementById('cartItems'); container.innerHTML='';
+  let total=0;
+  cart.forEach(item=>{
+    total+=item.price*item.qty;
+    const el=document.createElement('div'); el.className='cart-item';
+    el.innerHTML=`<img src='${item.img}'><div style='flex:1'><div>${item.title}</div><div class='meta'>${item.price} د.ج x ${item.qty}</div></div>`;
+    container.appendChild(el);
+  });
+  document.getElementById('cartTotal').innerText=total+' د.ج';
+}
+
+function openCart(){document.getElementById('cartDrawer').classList.add('open');}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
+document.getElementById('cartBtn').addEventListener('click',()=>{document.getElementById('cartDrawer').classList.toggle('open');});
+function clearCart(){cart.length=0;updateCartUI();}
+
+/* === Checkout === */
+function openCheckout(){
+  if(cart.length===0){alert('العربة فارغة'); return;}
+  document.getElementById('checkoutModal').style.display='flex';
+  const details=cart.map(i=>`${i.title} x${i.qty} — ${i.price*i.qty} د.ج`).join('\n');
+  document.getElementById('checkoutDetails').innerText=details;
+  const last=JSON.parse(localStorage.getItem('lastProduct'));
+  if(last){document.getElementById('fullName').value=last.title;}
+}
+
+function closeCheckout(){document.getElementById('checkoutModal').style.display='none';}
+
+function submitOrder() {
+  const name = document.getElementById('fullName').value;
+  const email = document.getElementById('email').value;
+  const method = document.getElementById('paymentMethod').value;
+
+  if(!name || !email){
+    alert('الرجاء ملء جميع الحقول');
+    return;
+  }
+
+  const productNames = cart.map(i => i.title).join(", ");
+  const productPrices = cart.map(i => i.price + " د.ج").join(", ");
+
+  emailjs.send(
+    "service_jae833s",
+    "template_ja011yl",
+    {
+      user_name: name,
+      user_email: email,
+      payment_method: method,
+      product_name: productNames,
+      product_price: productPrices
+    }
+  ).then(() => {
+    alert(`شكراً ${name}! تم طلب المنتج بنجاح.`);
+  }, (err) => {
+    alert("حدث خطأ أثناء الإرسال: " + err.text);
+  });
+
+  clearCart();
+  closeCheckout();
+  closeCart();
+}
+
+/* === Search === */
+document.getElementById('searchInput').addEventListener('input',function(e){
+  const q=e.target.value.trim();
+  if(!q) renderProducts(products);
+  else renderProducts(products.filter(p=>p.title.includes(q)||p.meta.includes(q)));
 });
 
-document.getElementById('clearCart').addEventListener('click', ()=>{
-  cart = {};
-  localStorage.removeItem('best_offers_cart');
-  renderCart();
-  alert("تم تفريغ السلة ✅");
+/* === Shipping offers overlay logic === */
+const offersBtn = document.getElementById('offersBtn');
+const shippingOverlay = document.getElementById('shippingOffersOverlay');
+const closeOffersBtn = document.getElementById('closeOffersBtn');
+const offersList = document.getElementById('offersList');
+const offerChoiceModal = document.getElementById('offerChoiceModal');
+const chargeOfferBtn = document.getElementById('chargeOfferBtn');
+const chargeGemsBtn = document.getElementById('chargeGemsBtn');
+const rightToast = document.getElementById('rightToast');
+
+offersBtn.addEventListener('click', openShippingOverlay);
+closeOffersBtn.addEventListener('click', closeShippingOverlay);
+
+/* render offers inside overlay */
+function renderOffers(){
+  offersList.innerHTML = '';
+  shippingOffers.forEach(o=>{
+    const el = document.createElement('div'); el.className='offer';
+    el.innerHTML = `
+      <img src="${o.img}" style="width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:8px">
+      <h4>${o.title}</h4>
+      <div class="meta">${o.meta}</div>
+      <div class="offer-price">${o.price} د.ج</div>
+      <div style="display:flex;gap:8px">
+        <button class="offer-btn" onclick='onOfferAdd("${o.id}")'>أضف للعربة</button>
+      </div>
+    `;
+    offersList.appendChild(el);
+  });
+}
+renderOffers();
+
+function openShippingOverlay(){
+  shippingOverlay.classList.add('open');
+  shippingOverlay.setAttribute('aria-hidden','false');
+}
+function closeShippingOverlay(){
+  shippingOverlay.classList.remove('open');
+  shippingOverlay.setAttribute('aria-hidden','true');
+}
+
+/* عند الضغط على أضف للعربة داخل عروض الشحن -> تفتح نافذة اختيار */
+function onOfferAdd(offerId){
+  lastAddedOffer = shippingOffers.find(o=>o.id===offerId);
+  openOfferChoice();
+}
+
+/* نافذة اختيار الشحن الصغيرة */
+function openOfferChoice(){
+  offerChoiceModal.style.display = 'flex';
+  offerChoiceModal.setAttribute('aria-hidden','false');
+}
+function closeOfferChoice(){
+  offerChoiceModal.style.display = 'none';
+  offerChoiceModal.setAttribute('aria-hidden','true');
+}
+
+/* عند اختيار "شحن العروض" أو "شحن الجواهر" */
+chargeOfferBtn.addEventListener('click', () => finalizeOfferAdd('شحن العروض'));
+chargeGemsBtn.addEventListener('click', () => finalizeOfferAdd('شحن الجواهر'));
+
+function finalizeOfferAdd(type){
+  if(!lastAddedOffer) return;
+  const item = {
+    id: lastAddedOffer.id,
+    title: `${lastAddedOffer.title} — ${type}`,
+    price: lastAddedOffer.price,
+    qty: 1,
+    img: lastAddedOffer.img,
+    isOffer: true
+  };
+  cart.push(item);
+  updateCartUI();
+  closeOfferChoice();
+  // عرض رسالة برتقالية على أقصى يمين الشاشة 10 ثواني
+  showRightToast();
+}
+
+/* Toast logic: يظهر 10 ثواني ثم يختفي بأنيميشن ناعم */
+let toastTimeout = null;
+function showRightToast(){
+  if(toastTimeout) { clearTimeout(toastTimeout); toastTimeout = null; }
+  rightToast.classList.add('show');
+  rightToast.style.animation = 'none';
+  // إعادة تهيئة لبدء الانيميشن
+  void rightToast.offsetWidth;
+  rightToast.style.animation = '';
+  rightToast.style.display = 'block';
+
+  // بعد 10 ثواني نعمل أنيميشن خروج ثم نخفيه
+  toastTimeout = setTimeout(()=> {
+    rightToast.style.animation = 'toastOut .5s ease forwards';
+    // بعد انتهاء الأنيميشن نخفي العنصر
+    setTimeout(()=> {
+      rightToast.classList.remove('show');
+      rightToast.style.display = 'none';
+      rightToast.style.animation = '';
+    }, 500);
+    toastTimeout = null;
+  }, 10000);
+}
+
+/* إغلاق overlay عند الضغط خارج الكارت (خيار اختياري) */
+shippingOverlay.addEventListener('click', (e)=> {
+  if(e.target === shippingOverlay) closeShippingOverlay();
+});
+offerChoiceModal.addEventListener('click', (e)=> {
+  if(e.target === offerChoiceModal) closeOfferChoice();
 });
 
+/* === Start === */
+renderProducts(products);
+updateCartUI();
 </script>
 
 </body>
