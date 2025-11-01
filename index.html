@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>أفضل عروض شحن</title>
+  <style>
+    :root{ --bg:#0b0b0b; --card:#0f1720; --muted:#94a3b8; --accent:#06b6d4; --success:#16a34a; --danger:#ef4444; --glass:rgba(255,255,255,0.03); }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial; background:var(--bg); color:#e6eef8; -webkit-font-smoothing:antialiased;}
+    header{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:20px}
+    h1{margin:0;font-size:20px}
+    nav{display:flex;gap:12px;align-items:center}
+    nav button{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;border-radius:8px;cursor:pointer}
+    main{max-width:1100px;margin:28px auto;padding:0 18px}
+    .sections{display:grid;grid-template-columns:1fr;gap:18px}
+    .section{background:var(--card);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
+    .section h2{margin:0 0 8px 0;color:#fff}
+    .products{display:flex;flex-wrap:wrap;gap:12px}
+    .prod{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;width:260px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
+    .prod img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+    .prod .title{font-weight:700}
+    .prod .price{font-weight:800;color:var(--accent);}
+    .actions{display:flex;gap:8px;margin-top:auto}
+    .btn{padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--accent);color:#051024}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    /* cart */
+    .cart-btn{position:fixed;left:18px;bottom:18px;background:var(--accent);color:#051024;padding:12px;border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,0.6);cursor:pointer;z-index:9999}
+    .cart-side{position:fixed;left:0;top:0;bottom:0;width:380px;background:#071023;transform:translateX(-105%);transition:transform .28s;box-shadow:8px 0 30px rgba(2,6,23,0.6);padding:14px;z-index:9998}
+    .cart-side.open{transform:translateX(0)}
+    .cart-item{display:flex;gap:10px;align-items:center;border-bottom:1px solid rgba(255,255,255,0.03);padding:10px 0}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:10000}
+    .modal.open{display:flex}
+    .modal .dialog{background:#071023;padding:18px;border-radius:12px;width:420px;max-width:94%;border:1px solid rgba(255,255,255,0.04);color:#e6eef8}
+    .modal .dialog h3{margin:0 0 8px 0}
+    .input,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .center{display:flex;gap:8px;align-items:center}
+    .note{font-size:13px;color:var(--muted)}
+    footer{padding:18px;text-align:center;color:var(--muted);margin-top:20px}
+    @media(max-width:740px){ .products{justify-content:center} .prod{width:100%} .cart-side{width:100%} }
+  </style>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js">
+document.getElementById('clearCart').addEventListener('click', ()=>{
+  cart = {};
+  localStorage.removeItem('best_offers_cart');
+  renderCart();
+  alert("تم تفريغ السلة ✅");
+});
+
+</script>
+<script>emailjs.init('H1UCQ3TNmVxTTUxaJ');
+document.getElementById('clearCart').addEventListener('click', ()=>{
+  cart = {};
+  localStorage.removeItem('best_offers_cart');
+  renderCart();
+  alert("تم تفريغ السلة ✅");
+});
+
+</script>
+</head>
+<body>
+<header>
+  <div class="logo"><div class="mark">S</div><div><h1>أفضل عروض شحن</h1><div class="note">عروض آمنة وسريعة</div></div></div>
+  <nav><button id="openAccounts">حسابات</button><button id="openDiscord">ديسكورد</button></nav>
+</header>
+
+<main>
+  <div class="sections">
+    <section class="section" id="tiktokSection">
+      <h2>قسم شحن تيك توك</h2>
+      <div class="products">
+        <!-- عملات تيك توك -->
+        <div class="prod" data-id="tt-coins">
+          <img src="https://i.pinimg.com/1200x/24/ee/ed/24eeedde0b8d46721790c6da4a50b1a3.jpg" alt="عملات تيك توك">
+          <div class="title">عملات تيك توك</div>
+          <div class="note">اختر الكمية المناسبة</div>
+          <div class="price">20 عملة — 150 د.ج</div>
+          <div class="actions"><button class="btn btn-primary order-btn" data-product="coins">طلب المنتج</button></div>
+        </div>
+        <!-- متابعين تيك توك -->
+        <div class="prod" data-id="tt-followers">
+          <img src="https://i.pinimg.com/736x/a8/87/0c/a8870c90c6302822beefe6795de9ca93.jpg" alt="متابعين تيك توك">
+          <div class="title">متابعين تيك توك</div>
+          <div class="note">100 متابع — 300 د.ج (خصم: 1000 متابع = 2500 د.ج)</div>
+          <div class="price">ابدأ من 100 متابع</div>
+          <div class="actions"><button class="btn btn-primary order-btn" data-product="followers">طلب المنتج</button></div>
+        </div>
+        <!-- مشاهدين تيك توك -->
+        <div class="prod" data-id="tt-views">
+          <img src="https://i.pinimg.com/736x/54/47/b1/5447b18f3ff226459b66481a3a684808.jpg" alt="مشاهدين تيك توك">
+          <div class="title">مشاهدين تيك توك</div>
+          <div class="note">1000 مشاهدة — 100 د.ج (خصم: 5000 مشاهدة = 500 د.ج)</div>
+          <div class="price">اختر عدد المشاهدات</div>
+          <div class="actions"><button class="btn btn-primary order-btn" data-product="views">طلب المنتج</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="discordSection">
+      <h2>قسم الديسكورد</h2>
+      <div class="products">
+        <!-- Nitro شهر + ضمان -->
+        <div class="prod" data-id="dc-nitro-plus">
+          <img src="https://i.pinimg.com/1200x/cb/78/c0/cb78c09f3e7c9a41fe174ca2b5251b8a.jpg" alt="Nitro Plus">
+          <div class="title">نيترو ديسكورد (شهر + ضمان)</div>
+          <div class="price">السعر: 2500 د.ج</div>
+          <div class="actions"><button class="btn btn-primary add-cart" data-id="nitro-plus" data-price="2500">طلب المنتج</button></div>
+        </div>
+        <!-- Nitro Basic -->
+        <div class="prod" data-id="dc-nitro-basic">
+          <img src="https://i.pinimg.com/1200x/35/33/87/353387addd7df0773560eba61a765820.jpg" alt="Nitro Basic">
+          <div class="title">نيترو بيسك</div>
+          <div class="price">السعر: 1200 د.ج</div>
+          <div class="actions"><button class="btn btn-primary add-cart" data-id="nitro-basic" data-price="1200">طلب المنتج</button></div>
+        </div>
+        <!-- حسابات ديسكورد -->
+        <div class="prod" data-id="dc-accounts">
+          <img src="https://i.pinimg.com/736x/ed/cb/56/edcb56a35853c07a7ba6348343470526.jpg" alt="حسابات ديسكورد">
+          <div class="title">حسابات ديسكورد</div>
+          <div class="note">اختر عمر الحساب</div>
+          <div class="price">ابتداءً من 1000 د.ج للسنة</div>
+          <div class="actions"><button class="btn btn-primary order-btn" data-product="discord-account">طلب المنتج</button></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Cart Button & Side -->
+<button id="cartBtn" class="cart-btn" title="السلة">🛒</button>
+<aside id="cartSide" class="cart-side" aria-hidden="true">
+  <header style="display:flex;justify-content:space-between;align-items:center"><strong>سلة المشتريات</strong><button id="closeCart" style="background:none;border:none;color:var(--danger);font-size:20px;cursor:pointer">✕</button></header>
+  <div id="cartBody" style="margin-top:12px"></div>
+  <div style="margin-top:12px;border-top:1px dashed rgba(255,255,255,0.04);padding-top:12px">
+    <div style="display:flex;justify-content:space-between"><div>المجموع:</div><div id="cartTotal">0 د.ج</div></div>
+    <button id="checkout" style="margin-top:10px;width:100%;padding:12px;border-radius:10px;border:none;background:var(--success);color:#02120a;font-weight:800">اكمال الدفع</button>
+<button id="clearCart" style="margin-top:8px;width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#ef4444;font-weight:800">تفريغ السلة</button>
+  </div>
+</aside>
+
+<!-- Generic modal for TikTok and Discord-account -->
+<div id="productModal" class="modal" aria-hidden="true">
+  <div class="dialog" role="dialog" aria-modal="true">
+    <button id="closeModal" style="float:left;background:none;border:none;color:var(--danger);font-size:22px;cursor:pointer">✕</button>
+    <h3 id="modalTitle">طلب المنتج</h3>
+    <img id="modalImg" src="" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin:8px 0">
+    <div id="modalBody"></div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button id="confirmAdd" class="btn btn-primary">أضف إلى السلة</button>
+      <button id="cancel" class="btn btn-ghost">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Simple cart implementation
+let cart = JSON.parse(localStorage.getItem('best_offers_cart')||'{}');
+const q = s => document.querySelector(s);
+
+function formatPrice(v){ return v.toLocaleString('ar-EG') + ' د.ج'; }
+
+function renderCart(){
+  const body = q('#cartBody'); body.innerHTML='';
+  const items = Object.values(cart);
+  if(items.length===0){ body.innerHTML = '<div style="color:var(--muted)">السلة فارغة</div>'; q('#cartTotal').textContent='0 د.ج'; return; }
+  let total = 0;
+  items.forEach(it=>{
+    total += it.price * it.qty;
+    const el = document.createElement('div'); el.className='cart-item';
+    el.innerHTML = `<img src="${it.img}" style="width:64px;height:64px;border-radius:8px;object-fit:cover"><div style="flex:1;text-align:left"><div style="font-weight:700">${it.title}</div><div class="note">${formatPrice(it.price)} × ${it.qty}</div></div>`;
+    body.appendChild(el);
+  });
+  q('#cartTotal').textContent = formatPrice(total);
+  localStorage.setItem('best_offers_cart', JSON.stringify(cart));
+}
+
+function addToCartItem(id, title, price, img, qty=1){
+  if(cart[id]) cart[id].qty += qty; else cart[id] = {id, title, price, img, qty};
+  renderCart();
+  q('#cartBtn').textContent = '🛒 ' + Object.values(cart).reduce((s,i)=>s+i.qty,0);
+}
+
+// open cart
+q('#cartBtn').addEventListener('click', ()=>{ q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false'); });
+q('#closeCart').addEventListener('click', ()=>{ q('#cartSide').classList.remove('open'); q('#cartSide').setAttribute('aria-hidden','true'); });
+
+// handle Add-to-cart direct (Discord Nitro items)
+document.querySelectorAll('.add-cart').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.dataset.id;
+    const price = Number(btn.dataset.price);
+    const prod = btn.closest('.prod');
+    const title = prod.querySelector('.title').textContent;
+    const img = prod.querySelector('img').src;
+    addToCartItem(id, title, price, img, 1);
+    // open cart
+    q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false');
+  });
+});
+
+// product modal logic (for TikTok items and discord account)
+const productModal = q('#productModal');
+const modalTitle = q('#modalTitle');
+const modalImg = q('#modalImg');
+const modalBody = q('#modalBody');
+let currentProduct = null;
+
+function openProductModal(productKey){
+  currentProduct = productKey;
+  modalBody.innerHTML = '';
+  if(productKey === 'coins'){
+    modalTitle.textContent = 'عملات تيك توك';
+    modalImg.src = 'https://i.pinimg.com/1200x/24/ee/ed/24eeedde0b8d46721790c6da4a50b1a3.jpg';
+    modalBody.innerHTML = `
+      <div class="note">اختر الكمية:</div>
+      <select id="qtySelect" class="input">
+        <option value="20" data-price="150">20 عملة — 150 د.ج</option>
+        <option value="50" data-price="320">50 عملة — 320 د.ج</option>
+        <option value="100" data-price="600">100 عملة — 600 د.ج</option>
+      </select>`;
+  } else if(productKey === 'followers'){
+    modalTitle.textContent = 'متابعين تيك توك';
+    modalImg.src = 'https://i.pinimg.com/736x/a8/87/0c/a8870c90c6302822beefe6795de9ca93.jpg';
+    modalBody.innerHTML = `
+      <div class="note">اختر الكمية:</div>
+      <select id="qtySelect" class="input">
+        <option value="100" data-price="300">100 متابع — 300 د.ج</option>
+        <option value="500" data-price="1400">500 متابع — 1400 د.ج</option>
+        <option value="1000" data-price="2500">1000 متابع — 2500 د.ج (خصم)</option>
+      </select>`;
+  } else if(productKey === 'views'){
+    modalTitle.textContent = 'مشاهدين تيك توك';
+    modalImg.src = 'https://i.pinimg.com/736x/54/47/b1/5447b18f3ff226459b66481a3a684808.jpg';
+    modalBody.innerHTML = `
+      <div class="note">اختر عدد المشاهدات:</div>
+      <select id="qtySelect" class="input">
+        <option value="1000" data-price="100">1000 مشاهدة — 100 د.ج</option>
+        <option value="3000" data-price="280">3000 مشاهدة — 280 د.ج</option>
+        <option value="5000" data-price="500">5000 مشاهدة — 500 د.ج (خصم)</option>
+      </select>`;
+  } else if(productKey === 'discord-account'){
+    modalTitle.textContent = 'طلب حساب ديسكورد';
+    modalImg.src = 'https://i.pinimg.com/736x/ed/cb/56/edcb56a35853c07a7ba6348343470526.jpg';
+    modalBody.innerHTML = `
+      <div class="note">اختر عمر الحساب (سنة)</div>
+      <select id="yearsSelect" class="input">
+        <option value="1" data-price="1000">1 سنة — 1000 د.ج</option>
+        <option value="2" data-price="2000">2 سنوات — 2000 د.ج</option>
+        <option value="3" data-price="3000">3 سنوات — 3000 د.ج</option>
+        <option value="4" data-price="4000">4 سنوات — 4000 د.ج</option>
+        <option value="5" data-price="5000">5 سنوات — 5000 د.ج</option>
+        <option value="6" data-price="6000">6 سنوات — 6000 د.ج</option>
+      </select>`;
+  }
+  productModal.classList.add('open');
+  productModal.setAttribute('aria-hidden','false');
+}
+
+// open modal on order-btn click
+document.querySelectorAll('.order-btn').forEach(b=>{
+  b.addEventListener('click', ()=> openProductModal(b.dataset.product));
+});
+
+// close modal
+q('#closeModal').addEventListener('click', ()=>{ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); });
+q('#cancel').addEventListener('click', ()=>{ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); });
+
+// confirm add from modal
+q('#confirmAdd').addEventListener('click', ()=>{
+  if(!currentProduct) return;
+  if(currentProduct === 'discord-account'){
+    const sel = q('#yearsSelect');
+    const years = Number(sel.value);
+    const price = Number(sel.selectedOptions[0].dataset.price);
+    addToCartItem('discord-acc-'+years, 'حساب ديسكورد — ' + years + ' سنة', price, q('#modalImg').src, 1);
+  } else {
+    const sel = q('#qtySelect');
+    const qty = Number(sel.value);
+    const price = Number(sel.selectedOptions[0].dataset.price);
+    addToCartItem(currentProduct + '-' + qty, modalTitle.textContent + ' × ' + qty, price, q('#modalImg').src, 1);
+  }
+  productModal.classList.remove('open');
+  productModal.setAttribute('aria-hidden','true');
+  // open cart to show item
+  q('#cartSide').classList.add('open'); q('#cartSide').setAttribute('aria-hidden','false');
+});
+
+// keyboard escape to close modal
+window.addEventListener('keydown', e=>{ if(e.key === 'Escape'){ productModal.classList.remove('open'); productModal.setAttribute('aria-hidden','true'); q('#cartSide').classList.remove('open'); } });
+
+// init
+renderCart();
+
+document.getElementById('clearCart').addEventListener('click', ()=>{
+  cart = {};
+  localStorage.removeItem('best_offers_cart');
+  renderCart();
+  alert("تم تفريغ السلة ✅");
+});
+
+</script>
+
+<footer>© جميع الحقوق محفوظة — أفضل عروض شحن</footer>
+
+<div id="payModal" class="modal">
+  <div class="dialog" style="background:#000;border:1px solid #222;">
+    <button onclick="closePayModal()" style="float:left;background:none;border:none;color:red;font-size:22px;cursor:pointer">✕</button>
+    <h3 style="margin-bottom:10px;text-align:center">أكمل الاستمارة لمتابعة الدفع</h3>
+    <form id="payForm" style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+      <input class="input" name="name" placeholder="الاسم" required>
+      <input class="input" name="email" type="email" placeholder="البريد الإلكتروني" required>
+      <select class="input" name="method" required>
+        <option value="">طريقة الدفع</option>
+        <option value="Flexy">فليكسي</option>
+        <option value="CCP">CCP</option>
+      </select>
+      <button type="submit" style="padding:12px;border:none;border-radius:8px;background:#16a34a;color:#fff;font-weight:800;cursor:pointer">
+        إرسال الطلب
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+function closePayModal(){ document.getElementById('payModal').classList.remove('open'); }
+
+document.getElementById('checkout').onclick = function(){
+  document.getElementById('payModal').classList.add('open');
+};
+
+document.getElementById('payForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  emailjs.send("service_jae833s","template_ja011yl",{
+    name: this.name.value,
+    email: this.email.value,
+    method: this.method.value
+  }).then(()=>{
+      alert("✅ تم إرسال طلبك بنجاح! سيتم التواصل معك.");
+      closePayModal();
+  }, ()=> alert("❌ فشل الإرسال"));
+});
+
+document.getElementById('clearCart').addEventListener('click', ()=>{
+  cart = {};
+  localStorage.removeItem('best_offers_cart');
+  renderCart();
+  alert("تم تفريغ السلة ✅");
+});
+
+</script>
+
+</body>
+</html>
